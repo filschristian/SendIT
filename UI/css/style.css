@@ -12,7 +12,7 @@ body{
 header{
 	background: #1A1007;
 	color: #cccccc;
-	padding-top: 30px;
+	padding-top: 10px;
 	min-height: 70px;
 }
 
@@ -51,7 +51,7 @@ header a:hover {
 }
 
 footer{
-	padding: 20px;
+	padding: 10px;
 	margin-top: 20px;
 	color: #cccccc;
 	background: #1A1007;
@@ -67,6 +67,9 @@ form{
  	padding: 45px;
   	text-align: center;
   	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+#signUpForm{
+	margin: 20px auto 20px;
 }
 
 button{
