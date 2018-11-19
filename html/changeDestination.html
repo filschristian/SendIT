@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Change Destination</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div id="logo">
+				<h1>SEND IT</h1>
+			</div>
+			<nav>
+				<li><a href="orderDelivery.html">Create Order</a></li>
+				<li class="active"><a href="changeDestination.html">Change Destination</a></li>
+				<li><a href="#">Order Details</a></li>
+				<li><a href="#">Cancel Order</a></li>
+				<li><a href="#">View Orders</a></li>
+				<li><a href="#">My profile</a></li>
+		</div>
+	</header>
+	<section>
+		<div class="big-container">
+			<div class="display-table">
+				<table>
+					<caption>Parcel Delivery Orders</caption>
+					<tr>
+						<th>Description</th>
+						<th>Pick Up Location</th>
+						<th>Destination</th>
+						<th>Quantity/Units</th>
+					</tr>
+					<tr>
+						<td>T-shirts</td>
+						<td>Kicukiro</td>
+						<td>
+							<span>Nyabugogo</span>
+                            <span class="edit-dest" onclick="openBox()">Edit
+                            </span>
+						</td>
+						<td>25</td>
+					</tr>
+					<tr>
+						<td>Books</td>
+						<td>Gasabo</td>
+						<td>
+							<span>Muhanga</span>
+                            <span class="edit-dest" onclick="openBox()">Edit
+                            </span>
+						</td>
+						<td>100</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+	<section id="dialog-box" class="box">
+		<div class="box-display">
+            <div class="row padding">
+                <div class="col-4">
+                    <div class="labeled-input">
+                        <label for="address">Address</label>
+                        <input type="text" name="address" id="address" class="custom-input" style="width: 100%">
+                    </div>
+                </div>
+            </div>
+            <div class="inline-btn">
+                <div class="col-4">
+                    <button class="btn-cancel" onclick="closeBox()">Cancel</button>
+                </div>
+                <div class="col-4">
+                    <button class="btn-save" id="#next-pay" onclick="closeBox()">Save</button>
+                </div>
+            </div>
+        </div>
+	</section>
+	<script type="text/javascript" src="../js/box.js"></script>
+</body>
+</html>
