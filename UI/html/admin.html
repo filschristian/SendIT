@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div id="logo">
+				<h1>SEND IT</h1>
+			</div>
+			<nav>
+				<li class="active"><a href="admin.html">Admin</a></li>
+			</nav>
+		</div>
+	</header>
+	<section>
+		<div class="big-container">
+			<div class="display-table">
+				<table>
+					<caption>All Parcel Delivery Orders</caption>
+					<tr>
+						<th>Sender</th>
+						<th>Description</th>
+						<th>Pick Up Location</th>
+						<th>Destination</th>
+						<th>Quantity/Units</th>
+						<th>Price</th>
+						<th class="status">Status</th>
+					</tr>
+					<tr>
+						<td>
+							<span class="edit-dest" onclick="openBox()">Edit</span>
+							<span>Christian</span>
+						</td>
+						<td>T-Shirts</td>
+						<td>Kicukiro</td>
+						<td>Nyabugogo</td>
+						<td>25</td>
+						<td>0 Rwf</td>
+						<td class="status">In transit</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="edit-dest" onclick="openBox()">Edit</span>
+							<span>Rene</span>
+						</td>
+						<td>Books</td>
+						<td>Gasabo</td>
+						<td>Muhanga</td>
+						<td>100</td>
+						<td>0 Rwf</td>
+						<td class="status">Delivered</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+	<section id="dialog-box" class="box">
+		<div class="box-display">
+            <div class="row padding">
+                <div class="col-4">
+                    <div class="labeled-input">
+                        <input type="text" name="location" id="location" class="custom-input" placeholder="Pick Up Location">
+                        <select id="status" class="custom-input">
+                        	<option>Select status</option>
+                        	<option value="delivered">DELIVERED</option>
+                        	<option value="in transit">IN TRANSIT</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="inline-btn">
+                <div class="col-4">
+                    <button class="btn-cancel" onclick="closeBox()">Cancel</button>
+                </div>
+                <div class="col-4">
+                    <button class="btn-save" id="#next-pay" onclick="closeBox()">Save</button>
+                </div>
+            </div>
+        </div>
+	</section>
+	<script type="text/javascript" src="../js/box.js"></script>
+</body>
+</html>
