@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Order Details</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div id="logo">
+				<h1>SEND IT</h1>
+			</div>
+			<nav>
+				<li><a href="orderDelivery.html">Create Order</a></li>
+				<li><a href="changeDestination.html">Edit Order</a></li>
+				<li class="active"><a href="orderDetails.html">Order Details</a></li>
+				<li><a href="#">View Orders</a></li>
+				<li><a href="#">My profile</a></li>
+			</nav>
+		</div>
+	</header>
+	<section>
+		<div class="search-form">
+			<form id="searchForm">
+				<input list="orders" name="myOrder" placeholder="Select an order" />
+					<datalist id="orders">
+					  <option value="Order 1">
+					  <option value="Order 2">
+					  <option value="Order 3">
+					  <option value="Order 4">
+					</datalist>
+				<button onclick="displayTable()">Search</button>
+			</form>
+		</div>
+	</section>
+	<section>
+		<div class="big-container">
+			<div class="display-table">
+				<table id="displayOrder">
+					<caption>Order Details</caption>
+					<tr>
+						<th>Description</th>
+						<th>Pick Up Location</th>
+						<th>Destination</th>
+						<th>Quantity/Units</th>
+						<th>Price</th>
+					</tr>
+					<tr>
+						<td>T-shirts</td>
+						<td>Kicukiro</td>
+						<td>Nyabugogo</td>
+						<td>25</td>
+						<td>0 Rwf</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
