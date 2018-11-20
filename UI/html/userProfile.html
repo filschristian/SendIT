@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>View Orders</title>
+	<title>Profile</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -16,45 +16,39 @@
 				<li><a href="orderDelivery.html">Create Order</a></li>
 				<li><a href="changeDestination.html">Edit Order</a></li>
 				<li><a href="orderDetails.html">Order Details</a></li>
-				<li class="active"><a href="viewOrders.html">View Orders</a></li>
-				<li><a href="userProfile.html">My profile</a></li>
+				<li><a href="viewOrders.html">View Orders</a></li>
+				<li class="active"><a href="userProfile.html">My profile</a></li>
 			</nav>
 		</div>
 	</header>
 	<section>
-		<div class="big-container">
-			<div class="display-table">
-				<table id="in-transit-tb">
-					<caption>IN TRANSIT</caption>
-					<tr>
-						<th>Description</th>
-						<th>Pick Up Location</th>
-						<th>Destination</th>
-						<th>Quantity/Units</th>
-						<th>Price</th>
-					</tr>
-					<tr>
-						<td>T-shirts</td>
-						<td>Kicukiro</td>
-						<td>Nyabugogo</td>
-						<td>25</td>
-						<td>0 Rwf</td>
-					</tr>
-				</table>
+		<div class="wrapper">
+			<div class="wrapper-content">
+				<h2>All Orders</h2>
+				<p>56</p>
+			</div>
+			<div class="wrapper-content">
+				<h2>In Transit</h2>
+				<p>40</p>
+			</div>
+			<div class="wrapper-content">
+				<h2>Delivered</h2>
+				<p>16</p>
 			</div>
 		</div>
 	</section>
 	<section>
 		<div class="big-container">
 			<div class="display-table">
-				<table id="delivered-tb">
-					<caption>DELIVERED</caption>
+				<table id="all-orders">
+					<caption>ALL ORDERS</caption>
 					<tr>
 						<th>Description</th>
 						<th>Pick Up Location</th>
 						<th>Destination</th>
 						<th>Quantity/Units</th>
 						<th>Price</th>
+						<th>Status</th>
 					</tr>
 					<tr>
 						<td>T-shirts</td>
@@ -62,6 +56,23 @@
 						<td>Nyabugogo</td>
 						<td>25</td>
 						<td>0 Rwf</td>
+						<td class="status">In Transit</td>
+					</tr>
+					<tr>
+						<td>T-shirts</td>
+						<td>Kicukiro</td>
+						<td>Nyabugogo</td>
+						<td>25</td>
+						<td>0 Rwf</td>
+						<td class="status">Delivered</td>
+					</tr>
+					<tr>
+						<td>T-shirts</td>
+						<td>Kicukiro</td>
+						<td>Nyabugogo</td>
+						<td>25</td>
+						<td>0 Rwf</td>
+						<td class="status">In Transit</td>
 					</tr>
 				</table>
 			</div>
