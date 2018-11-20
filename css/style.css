@@ -87,7 +87,7 @@ button{
   	cursor: pointer;
 }
 
-input{
+input, select{
 	font-family: "Roboto", sans-serif;
   	outline: 0;
   	background: #f2f2f2;
