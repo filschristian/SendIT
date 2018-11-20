@@ -4,7 +4,7 @@
 	<title>Login | SendIT</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 	<header>
@@ -14,6 +14,7 @@
 			</div>
 			<nav>
 				<li class="active"><a href="index.html">Log In</a></li>
+				<li><a href="html/admin.html">Admin</a></li>
 			</nav>
 		</div>
 	</header>
@@ -21,11 +22,11 @@
 		<div class="form">
 			<form id="signInForm">
 					
-					<input type="text" placeholder="Username" name="InName" required><br>
+					<input type="text" placeholder="Username" name="InName"><br>
 
-					<input type="password" placeholder="Password" name="InPwd" required><br>
+					<input type="password" placeholder="Password" name="InPwd"><br>
 
-					<button type="submit">Sign In</button>
+					<button type="submit" formaction="html/orderDelivery.html">Sign In</button>
 
 					<p class="message" id="msgToSignUp">Not registered? <a href="signUp.html">Sign Up</a></p>
 				
