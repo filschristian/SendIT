@@ -149,9 +149,10 @@ tr:nth-child(even) {
 }
 .edit-dest{
 	font-weight: bold;
-	font-size: 10px;
+	font-size: 20px;
 	color: #FF0000;
 	display: none;
+	padding-right: 10px;
 
 }
 tr:hover .edit-dest{
@@ -185,4 +186,8 @@ tr:hover .edit-dest{
 }
 .col-4{
 	padding-top: 10px;
+}
+#searchForm{
+	margin: 20px auto 20px;
+	padding: 20px 20px 20px 20px ;
 }
