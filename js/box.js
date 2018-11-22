@@ -1,29 +1,36 @@
-const box = document.getElementById("dialog-box");
-const cancel_box=document.getElementById("cancel-box");
+const box = document.getElementById('dialog-box');
+const cancelBox = document.getElementById('cancel-box');
+const loginBox = document.getElementById('login-form');
 
 /* Open box for editing */
 const openBox = () => {
-	box.style.display = "block";
+	box.style.display = 'block';
 };
 
 const openCancelBox = () => {
-	cancel_box.style.display = "block";
+	cancelBox.style.display = 'block';
+};
+
+const openLoginBox = () => {
+	loginBox.style.display = 'block';
 };
 
 /* Close box for editing */
 const closeBox = () => {
-	box.style.display = "none";
-	box.style.transition = "display 5s";
+	box.style.display = 'none';
+	box.style.transition = 'display 5s';
 };
 
 const closeCancelBox = () => {
-	cancel_box.style.display = "none";
-	cancel_box.style.transition = "display 5s";
+	cancelBox.style.display = 'none';
+	cancelBox.style.transition = 'display 5s';
 };
 
 /* Otherwise close the box */
-window.onclick = event => {
+window.onclick = (event) => {
 	if (event.target == box) {
-		box.style.display = "none";
+		box.style.display = 'none';
+	}else if (event.target == cancelBox) {
+		cancelBox.style.display = 'none';
 	}
 };
