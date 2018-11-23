@@ -9,5 +9,6 @@ export default [
     price: 30,
     orderDate: '2018-05-23',
     senderId: 1,
+    status: 'in transit',
   },
 ];

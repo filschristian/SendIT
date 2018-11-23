@@ -6,7 +6,7 @@ class Orders {
   // Method to create an order
   static create(req, res) {
     if (!req.body.descr && !req.body.location && !req.body.destination
-      && !req.body.quantity && !req.body.senderId) {
+      && !req.body.quantity && !req.body.senderId && !req.body.status) {
       return res.status(400).send({ message: 'All fields are required' });
     }
     const price = helpers.calculatePrice(req.body.quantity);
@@ -19,6 +19,7 @@ class Orders {
       price,
       orderDate: moment.now(),
       senderId: req.body.senderId,
+      status: req.body.status,
     };
     orders.push(newOrder);
     return res.status(201).send(newOrder);
@@ -30,13 +31,13 @@ class Orders {
   }
 
   // method to fetch a specific order
-  /*  static fetchOneOrder(req, res) {
-     const order = orders.find(o => o.id === parseInt(req.params.id, 10));
-     if (!order) {
-       return res.status(404).send('Order not found');
-     }
-     return res.status(200).send(order);
-   } */
+  static fetchOneOrder(req, res) {
+    const order = orders.find(o => o.id === parseInt(req.params.id, 10));
+    if (!order) {
+      return res.status(404).send('Order not found');
+    }
+    return res.status(200).send(order);
+  }
 }
 
 export default Orders;
