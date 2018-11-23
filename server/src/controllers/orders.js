@@ -25,9 +25,9 @@ class Orders {
   }
 
   // method to fetch all parcels
-  /* static fetchAll(req, res) {
+  static fetchAll(req, res) {
     return res.status(200).send(orders);
-  } */
+  }
 
   // method to fetch a specific order
   /*  static fetchOneOrder(req, res) {
