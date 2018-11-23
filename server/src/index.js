@@ -1,16 +1,15 @@
 import express from 'express';
+import router from './routes/orders';
 
 const server = express();
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+server.use(router);
 
 const PORT = process.env.PORT || 3000;
-
-server.get('/', (req, res) => {
-  return res.status(200).send({ message: 'YAY! Congratulations! Your first endpoint is working' });
-});
 
 server.listen(PORT, () => {
   console.log(`server listening on port: ${PORT}`);
 });
+export default server;
