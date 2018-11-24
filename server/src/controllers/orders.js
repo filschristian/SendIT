@@ -1,28 +1,40 @@
-import moment from 'moment';
+import Joi from 'joi';
 import helpers from '../helpers';
 import orders from '../models/orders';
 
 class Orders {
   // Method to create an order
   static create(req, res) {
-    if (!req.body.descr && !req.body.location && !req.body.destination
-      && !req.body.quantity && !req.body.senderId && !req.body.status) {
-      return res.status(400).send({ message: 'All fields are required' });
-    }
-    const price = helpers.calculatePrice(req.body.quantity);
-    const newOrder = {
-      id: orders.length + 1,
-      descr: req.body.descr,
-      location: req.body.location,
-      destination: req.body.destination,
-      quantity: req.body.quantity,
-      price,
-      orderDate: moment.now(),
-      senderId: req.body.senderId,
-      status: req.body.status,
-    };
-    orders.push(newOrder);
-    return res.status(201).send(newOrder);
+    const schema = Joi.object().keys({
+      descr: Joi.string().trim().required(),
+      location: Joi.string().trim().required(),
+      destination: Joi.string().trim().required(),
+      quantity: Joi.number().required(),
+      senderId: Joi.number().required(),
+      status: Joi.string().trim().required(),
+    });
+    Joi.validate(req.body, schema, (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(403).send({ message: 'Wrong format of data' });
+      }
+      console.log(result);
+      const price = helpers.calculatePrice(req.body.quantity);
+      const date = new Date().toDateString();
+      const newOrder = {
+        id: orders.length + 1,
+        descr: req.body.descr,
+        location: req.body.location,
+        destination: req.body.destination,
+        quantity: req.body.quantity,
+        price,
+        orderDate: date,
+        senderId: req.body.senderId,
+        status: req.body.status,
+      };
+      orders.push(newOrder);
+      return res.status(201).send(newOrder);
+    });
   }
 
   // method to fetch all parcels
@@ -36,6 +48,16 @@ class Orders {
     if (!order) {
       return res.status(404).send('Order not found');
     }
+    return res.status(200).send(order);
+  }
+
+  // Method to cancel an order
+  static cancelOrder(req, res) {
+    const order = orders.find(o => o.id === parseInt(req.params.id, 10));
+    if (!order) {
+      return res.status(404).send('Order not found');
+    }
+    order.status = 'canceled';
     return res.status(200).send(order);
   }
 }
