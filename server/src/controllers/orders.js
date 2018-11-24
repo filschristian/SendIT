@@ -60,6 +60,17 @@ class Orders {
     order.status = 'canceled';
     return res.status(200).send(order);
   }
+
+  // Method to delete an order
+  static deleteOrder(req, res) {
+    const order = orders.find(o => o.id === parseInt(req.params.id, 10));
+    if (!order) {
+      return res.status(404).send('order not found');
+    }
+    const index = orders.indexOf(order);
+    orders.splice(index, 1);
+    return res.status(200).send(order);
+  }
 }
 
 export default Orders;
