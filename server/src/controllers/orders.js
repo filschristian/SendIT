@@ -13,12 +13,11 @@ class Orders {
       senderId: Joi.number().required(),
       status: Joi.string().trim().required(),
     });
-    Joi.validate(req.body, schema, (err, result) => {
+    Joi.validate(req.body, schema, (err) => {
       if (err) {
         console.log(err);
         return res.status(403).send({ message: 'Wrong format of data' });
       }
-      console.log(result);
       const price = helpers.calculatePrice(req.body.quantity);
       const date = new Date().toDateString();
       const newOrder = {
@@ -29,7 +28,7 @@ class Orders {
         quantity: req.body.quantity,
         price,
         orderDate: date,
-        senderId: req.body.senderId,
+        senderId: parseInt(req.body.senderId, 10),
         status: req.body.status,
       };
       orders.push(newOrder);
@@ -83,7 +82,7 @@ class Orders {
     order.destination = req.body.destination;
     order.quantity = req.body.quantity;
     order.price = helpers.calculatePrice(req.body.quantity);
-    order.senderId = req.body.senderId;
+    order.senderId = parseInt(req.body.senderId, 10);
     order.status = req.body.status;
 
     return res.status(200).send(order);
