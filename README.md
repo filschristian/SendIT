@@ -1,3 +1,5 @@
+
+[![Build Status](https://travis-ci.com/filschristian/SendIT.svg?branch=develop)](https://travis-ci.com/filschristian/SendIT)
 # SendIT
 
 Send IT is a parcel delivery app developed in javascript, the app allows users to order a parcel delivery to any destination they want. The app provides courier quotes based on the weight of the parcel. With this app, the user can perform all operations related to his parcel delivery order (Create, Read, Update and Delete).
