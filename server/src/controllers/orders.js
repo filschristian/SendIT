@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import jwt from 'jsonwebtoken';
 import helpers from '../helpers';
 import orders from '../models/orders';
 
@@ -15,7 +16,6 @@ class Orders {
     });
     Joi.validate(req.body, schema, (err) => {
       if (err) {
-        console.log(err);
         return res.status(403).send({ message: 'Wrong format of data' });
       }
       const price = helpers.calculatePrice(req.body.quantity);
@@ -73,19 +73,20 @@ class Orders {
 
   // Method to update order
   static updateOrder(req, res) {
-    const order = orders.find(o => o.id === parseInt(req.params.id, 10));
-    if (!order) {
-      return res.status(404).send('order not found');
-    }
-    order.descr = req.body.descr;
-    order.location = req.body.location;
-    order.destination = req.body.destination;
-    order.quantity = req.body.quantity;
-    order.price = helpers.calculatePrice(req.body.quantity);
-    order.senderId = parseInt(req.body.senderId, 10);
-    order.status = req.body.status;
-
-    return res.status(200).send(order);
+    jwt.verify(req.headers['authorization'], 'AuthenticationKey', (err) => {
+      if (err) {
+        return res.status(403).send('You have no authorization ');
+      }
+      const order = orders.find(o => o.id === parseInt(req.params.id, 10));
+      if (!order) {
+        return res.status(404).send('order not found');
+      }
+      if (parseInt(req.body.senderId, 10) !== order.id) {
+        return res.status(403).send('You dont have access to this order');
+      }
+      order.destination = req.body.destination;
+      return res.json({ order });
+    });
   }
 }
 

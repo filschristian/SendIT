@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import jwt from 'jsonwebtoken';
 import users from '../models/users';
 import orders from '../models/orders';
 
@@ -51,6 +52,20 @@ class Users {
       return res.status(404).send({ message: 'No order for this user' });
     }
     return res.status(200).send(order);
+  }
+
+  // Method for user Log In
+  static logIn(req, res) {
+    const ExistingUser = users.find(user => user.username === req.body.username && user.password === req.body.password);
+    if (!ExistingUser) {
+      return res.status(404).send({ message: 'User Not Found' });
+    }
+    return jwt.sign({ ExistingUser }, 'AuthenticationKey', (err, token) => {
+      res.json({
+        token,
+        User: ExistingUser,
+      });
+    });
   }
 }
 

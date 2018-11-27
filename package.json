@@ -4,6 +4,7 @@
   "description": "An application for parcel delivery",
   "main": "index.js",
   "scripts": {
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test": "nyc mocha --require babel-polyfill --require babel-register --exec babel-node  server/tests/ --exi",
     "dev": "nodemon --exec babel-node server/src/index.js "
   },
@@ -20,9 +21,12 @@
   "dependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "joi": "^14.1.0",
-    "moment": "^2.22.2"
+    "jsonwebtoken": "^8.4.0",
+    "moment": "^2.22.2",
+    "pg": "^7.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
