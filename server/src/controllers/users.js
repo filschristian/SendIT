@@ -2,6 +2,7 @@ import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import users from '../models/users';
 import orders from '../models/orders';
+import helpers from '../helpers/index';
 import execute from '../db/index';
 
 class Users {
@@ -22,7 +23,7 @@ class Users {
       const sql = 'INSERT INTO users(firstname, lastname, username, password, usertype) VALUES ($1, $2, $3, $4, $5) RETURNING id';
       const data = [
         req.body.firstname, req.body.lastname,
-        req.body.username, req.body.password, req.body.usertype,
+        req.body.username, helpers.hashPassword(req.body.password), req.body.usertype,
       ];
       const result = await execute(sql, data);
       if (result.rows) {
@@ -54,7 +55,7 @@ class Users {
   // Method to fetch parcel orders of one user
   static fetchOrders(req, res) {
     const order = orders.filter(o => o.senderId === parseInt(req.params.id, 10));
-    if (!order) {
+    if (order.length === 0) {
       return res.status(404).send({ message: 'No order for this user' });
     }
     return res.status(200).send(order);

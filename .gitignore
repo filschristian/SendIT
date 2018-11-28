@@ -1,3 +1,4 @@
 node_modules/
 UI/html/viewOrders.html/
 .env
+db.js
