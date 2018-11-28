@@ -1,7 +1,7 @@
 import express from 'express';
 import Orders from '../controllers/orders';
 import Users from '../controllers/users';
-import middlewares from '../middlewares/';
+
 
 const router = express.Router();
 router.use(express.json());

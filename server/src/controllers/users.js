@@ -2,6 +2,7 @@ import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import users from '../models/users';
 import orders from '../models/orders';
+import execute from '../db/index';
 
 class Users {
   // Method to create user
@@ -13,21 +14,26 @@ class Users {
       password: Joi.string().trim().required(),
       usertype: Joi.string().trim().required(),
     });
-    Joi.validate(req.body, schema, (err) => {
+    Joi.validate(req.body, schema, async (err) => {
       if (err) {
         console.log(err);
         return res.status(403).send({ message: 'Wrong input' });
       }
-      const newUser = {
-        id: users.length + 1,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        username: req.body.username,
-        password: req.body.password,
-        usertype: req.body.usertype,
-      };
-      users.push(newUser);
-      return res.status(200).send(newUser);
+      const sql = 'INSERT INTO users(firstname, lastname, username, password, usertype) VALUES ($1, $2, $3, $4, $5) RETURNING id';
+      const data = [
+        req.body.firstname, req.body.lastname,
+        req.body.username, req.body.password, req.body.usertype,
+      ];
+      const result = await execute(sql, data);
+      if (result.rows) {
+        const record = result.rows[0];
+        res.status(201).send({
+          success: true, user: record.id,
+        });
+      }
+      return res.status(400).send({
+        message: 'This username already exists'
+      });
     });
   }
 

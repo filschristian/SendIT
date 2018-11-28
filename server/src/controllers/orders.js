@@ -2,6 +2,7 @@ import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import helpers from '../helpers';
 import orders from '../models/orders';
+import execute from '../db/index';
 
 class Orders {
   // Method to create an order
