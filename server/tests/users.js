@@ -1,33 +1,41 @@
-import chai, { should } from 'chai';
+import chai from 'chai';
 import chaihttp from 'chai-http';
 import server from '../src';
 
 chai.use(chaihttp);
 
-describe('end points', () => {
-  describe('POST/user', () => {
-    chai.request(server)
-      .post('/api/v1/users/')
+describe('/Create users', () => {
+  it('it should create a new user', done => {
+    chai
+      .request(server)
+      .post('/api/v1/auth/signup')
       .send({
-        firstname: 'fred',
-        lastname: 'kalisa',
-        username: 'kfred',
-        password: 'jumia',
+        firstname: 'kigali',
+        lastname: 'kigali',
+        username: 'Muhanga@gmail.com',
+        password: 'kigali',
         usertype: 'user',
       })
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(201);
         res.body.should.be.a('object');
-        res.body.should.have.property('id');
+        res.body.should.have.property('success');
+        done();
       });
   });
-  describe('GET/users', () => {
-    chai.request(server)
-      .get('/api/v1/users/')
+  it('it should sign in a user', done => {
+    chai
+      .request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        username: 'Muhanga@gmail.com',
+        password: 'kigali',
+      })
       .end((err, res) => {
-        res.should.has.status(200);
-        res.should.be.a('object');
-        res.body.should.have.property('id');
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('success');
+        done();
       });
   });
 });

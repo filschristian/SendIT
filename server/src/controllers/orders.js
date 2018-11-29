@@ -8,38 +8,41 @@ class Orders {
   // Method to create an order
   static create(req, res) {
     const schema = Joi.object().keys({
-      descr: Joi.string().trim().required(),
-      location: Joi.string().trim().required(),
-      destination: Joi.string().trim().required(),
-      quantity: Joi.number().required(),
-      senderId: Joi.number().required(),
-      status: Joi.string().trim().required(),
+      descr: Joi.string().trim().min(3).required(),
+      location: Joi.string().trim().min(3).required(),
+      destination: Joi.string().trim().min(3).required(),
+      quantity: Joi.number().min(1).required(),
+      senderId: Joi.number().min(1).required(),
     });
-    Joi.validate(req.body, schema, (err) => {
+    Joi.validate(req.body, schema, async (err) => {
       if (err) {
-        return res.status(403).send({ message: 'Wrong format of data' });
+        return res.status(400).send({ message: 'Wrong input' });
       }
-      const price = helpers.calculatePrice(req.body.quantity);
-      const date = new Date().toDateString();
-      const newOrder = {
-        id: orders.length + 1,
-        descr: req.body.descr,
-        location: req.body.location,
-        destination: req.body.destination,
-        quantity: req.body.quantity,
-        price,
-        orderDate: date,
-        senderId: parseInt(req.body.senderId, 10),
-        status: req.body.status,
-      };
-      orders.push(newOrder);
-      return res.status(201).send(newOrder);
+      const orderDate = new Date();
+      const sql = 'INSERT INTO orders(description, location, destination, quantity, price, orderDate, senderId, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id';
+      const data = [
+        req.body.descr, req.body.location, req.body.destination,
+        req.body.quantity, helpers.calculatePrice(req.body.quantity), orderDate,
+        req.body.senderId, 'In transit',
+      ];
+      const result = await execute(sql, data);
+      if (typeof result === 'object') {
+        const record = result.rows[0];
+        return res.status(201).send({
+          success: true, order: record.id,
+        });
+      }
+      return res.status(400).send({
+        message: 'This User ID is not valid ',
+      });
     });
   }
 
   // method to fetch all parcels
   static fetchAll(req, res) {
-    return res.status(200).send(orders);
+    return res.status(201).send({
+      orders,
+    });
   }
 
   // method to fetch a specific order
@@ -72,21 +75,97 @@ class Orders {
     return res.status(200).send(order);
   }
 
-  // Method to update order
+  // Method to update deestination of order
   static updateOrder(req, res) {
     jwt.verify(req.headers['authorization'], 'AuthenticationKey', (err) => {
       if (err) {
-        return res.status(403).send('You have no authorization ');
+        return res.status(403).send({ message: 'You have no authorization' });
       }
-      const order = orders.find(o => o.id === parseInt(req.params.id, 10));
-      if (!order) {
-        return res.status(404).send('order not found');
+      const schema = Joi.object().keys({
+        destination: Joi.string().trim().min(3).required(),
+        senderId: Joi.number().min(1).required(),
+      });
+      Joi.validate(req.body, schema, async (error) => {
+        if (error) {
+          return res.status(400).send({ message: 'Wrong input' });
+        }
+        const sql = 'UPDATE orders SET destination = $1 WHERE id = $2 AND senderid = $3 RETURNING id';
+        const data = [req.body.destination, req.params.id, req.body.senderId];
+
+        const result = await execute(sql, data);
+        if (result.rows.length !== 0) {
+          const record = result.rows[0];
+          return res.status(201).send({
+            success: true, order: record,
+          });
+        }
+        return res.status(400).send({ message: 'Failed to change the destination' });
+      });
+    });
+  }
+
+  static updateStatus(req, res) {
+    jwt.verify(req.headers['authorization'], 'AuthenticationKey', (err) => {
+      if (err) {
+        return res.status(403).send({ message: 'You have no authorization' });
       }
-      if (parseInt(req.body.senderId, 10) !== order.id) {
-        return res.status(403).send('You dont have access to this order');
+      if (req.body.usertype !== 'admin') {
+        return res.status(403).send({ message: 'Functionality reserved for admin' });
       }
-      order.destination = req.body.destination;
-      return res.json({ order });
+      const schema = Joi.object().keys({
+        status: Joi.string().trim().min(3).max(25)
+          .required(),
+        usertype: Joi.string().trim().required(),
+      });
+      Joi.validate(req.body, schema, async (error) => {
+        if (error) {
+          return res.status(400).send({ message: 'Wrong input' });
+        }
+        const sql = 'UPDATE orders SET status = $1 WHERE id = $2 RETURNING id';
+        const data = [req.body.status, req.params.id];
+
+        const result = await execute(sql, data);
+        if (result.rows.length !== 0) {
+          const record = result.rows[0];
+          return res.status(201).send({
+            success: true, order: record,
+          });
+        }
+        return res.status(400).send({ message: 'Wrong Parcel ID' });
+      });
+    });
+  }
+
+
+  static updateLocation(req, res) {
+    jwt.verify(req.headers['authorization'], 'AuthenticationKey', (err) => {
+      if (err) {
+        return res.status(403).send({ message: 'You have no authorization' });
+      }
+      if (req.body.usertype !== 'admin') {
+        return res.status(403).send({ message: 'Functionality reserved for admin' });
+      }
+      const schema = Joi.object().keys({
+        location: Joi.string().trim().min(3).max(25)
+          .required(),
+        usertype: Joi.string().trim().required(),
+      });
+      Joi.validate(req.body, schema, async (error) => {
+        if (error) {
+          return res.status(400).send({ message: 'Wrong input' });
+        }
+        const sql = 'UPDATE orders SET location = $1 WHERE id = $2 RETURNING id';
+        const data = [req.body.location, req.params.id];
+
+        const result = await execute(sql, data);
+        if (result.rows.length !== 0) {
+          const record = result.rows[0];
+          return res.status(201).send({
+            success: true, order: record,
+          });
+        }
+        return res.status(400).send({ message: 'Wrong Parcel ID' });
+      });
     });
   }
 }

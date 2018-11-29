@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "An application for parcel delivery",
   "main": "index.js",
+  "engines": {
+    "node": "8.12.0",
+    "npm": "6.4.1"
+  },
   "scripts": {
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test": "nyc mocha --require babel-polyfill --require babel-register --exec babel-node  server/tests/ --exi",

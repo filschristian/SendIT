@@ -14,6 +14,20 @@ const pool = new Pool({
 pool.on('connect', () => {
   console.log('connected to the db');
 });
+
+const createDB = () => {
+  const queryText = 'CREATE DATABASE sendit;';
+  pool.query(queryText)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+}
+
 const createTables = () => {
   const queryText =
     `CREATE TABLE IF NOT EXISTS
@@ -86,6 +100,7 @@ module.exports = {
   createTables,
   dropTables,
   addForeignKey,
+  createDB,
 };
 
 require('make-runnable');
