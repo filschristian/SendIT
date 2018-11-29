@@ -10,7 +10,9 @@
   "scripts": {
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test": "nyc mocha --require babel-polyfill --require babel-register --exec babel-node  server/tests/ --exi",
-    "dev": "nodemon --exec babel-node server/src/index.js "
+    "start": "babel-node server/src/index.js ",
+    "dev": "nodemon --exec babel-node server/src/index.js ",
+    "heroku-postbuild": "npm install --production"
   },
   "repository": {
     "type": "git",

@@ -35,8 +35,8 @@ const createTables = () => {
         id SERIAL PRIMARY KEY,
         firstname VARCHAR(25) NOT NULL,
         lastname VARCHAR(25) NOT NULL,
-        username VARCHAR(25) NOT NULL,
-        password VARCHAR(15) NOT NULL,
+        username VARCHAR(25) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
         usertype VARCHAR(15) NOT NULL
       ); CREATE TABLE IF NOT EXISTS
       orders(
