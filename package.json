@@ -12,7 +12,8 @@
     "test": "nyc mocha --require babel-polyfill --require babel-register --exec babel-node  server/tests/ --exi",
     "start": "babel-node server/src/index.js ",
     "dev": "nodemon --exec babel-node server/src/index.js ",
-    "heroku-postbuild": "npm install --production"
+    "heroku-postbuild": "npm install --production",
+    "run-heroku": "babel-node server/src/index.js"
   },
   "repository": {
     "type": "git",
