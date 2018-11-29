@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/filschristian/SendIT#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "bcrypt": "^3.0.2",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
