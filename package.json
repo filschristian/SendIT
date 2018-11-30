@@ -27,6 +27,9 @@
   "homepage": "https://github.com/filschristian/SendIT#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "bcrypt": "^3.0.2",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
@@ -41,9 +44,6 @@
     "pg": "^7.6.1"
   },
   "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "coveralls": "^3.0.2",
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
