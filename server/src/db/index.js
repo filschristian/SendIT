@@ -17,7 +17,6 @@ const execute = async (sql, data = []) => {
   try {
     return await connection.query(sql, data);
   } catch (error) {
-    /* console.log(error.message); */
     return error.message;
 
   } finally {

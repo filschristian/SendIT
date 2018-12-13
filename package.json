@@ -2,7 +2,7 @@
   "name": "sendit",
   "version": "1.0.0",
   "description": "An application for parcel delivery",
-  "main": "index.js",
+  "main": "server/src/index.js",
   "engines": {
     "node": "8.12.0",
     "npm": "6.4.1"
